@@ -19,13 +19,14 @@ use Exception;
 use Mmoreram\TranslationServer\Command\Abstracts\AbstractTranslationServerCommand;
 use Mmoreram\TranslationServer\Model\Translation;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
  * Class DeadCommand
  */
-class AddCommand extends AbstractTranslationServerCommand
+class DeadCommand extends AbstractTranslationServerCommand
 {
     /**
      * @var array
@@ -48,7 +49,7 @@ class AddCommand extends AbstractTranslationServerCommand
             ->addOption(
                 '--path',
                 '-p',
-                InputOption::VALUE_NONE,
+                InputOption::VALUE_OPTIONAL,
                 "Search path",
                 'src/'
             )
