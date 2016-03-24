@@ -109,6 +109,7 @@ class MetricsCommand extends AbstractTranslationServerCommand
     /**
      * @param  array  $missingTranslationsPerLanguage
      * @param  string $language
+     * @param  string $exportPath
      */
     protected function dumpFiles($missingTranslationsPerLanguage, $language, $exportPath)
     {
