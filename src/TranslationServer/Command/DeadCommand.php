@@ -18,6 +18,7 @@ namespace Mmoreram\TranslationServer\Command;
 use Exception;
 use Mmoreram\TranslationServer\Command\Abstracts\AbstractTranslationServerCommand;
 use Mmoreram\TranslationServer\Model\Translation;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -77,10 +78,16 @@ class DeadCommand extends AbstractTranslationServerCommand
         $masterLanguage = $project->getMasterLanguage();
 
         $translations = $project->getTranslations($domains, [$masterLanguage]);
+        $progress = new ProgressBar($output, count($translations));
+        $progress->setRedrawFrequency(10);
+
+        $this->printMessage($output, 'Trans Server', 'Total translations found: ' . count($translations));
 
         foreach ($translations as $translation) {
             $this->checkDeadTranslations($translation);
+            $progress->advance();
         }
+        $progress->finish();
 
         $this->dumpFiles($this->missingTranslation, $masterLanguage, $project->getExportPath());
 
